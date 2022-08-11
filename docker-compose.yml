@@ -1,0 +1,25 @@
+version: '3'
+services:
+  nodeservice:
+    container_name: nodeservice
+    restart: always
+    build: .
+    ports:
+      - '8080:8080'
+    links:
+      - redis
+    depends_on:
+      - redis
+  redis:
+    container_name: redis
+    image: 'redis:latest'
+    command: redis-server --port 6379
+    ports:
+      - "6379:6379"
+    expose:
+      - "6379"
+    environment:
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      ALLOW_EMPTY_PASSWORD: yes
+    
