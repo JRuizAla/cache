@@ -51,6 +51,7 @@ async function getCars(req, res, next) {
     response.forEach((doc) => {
       responseArr.push({...doc.data(), id:doc.id})
     })
+    client.setEx("cars", 600, JSON.stringify(responseArr));
     res.send(responseArr);
   } catch (err) {
     console.error(err);
